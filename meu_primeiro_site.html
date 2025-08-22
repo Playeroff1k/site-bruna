@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para Você Bruna✨</title>
+  <style>
+    :root {
+      --bg: #fff7fb;
+      --card: #ffffff;
+      --text: #2b2b2b;
+      --accent: #ff5fa2;
+      --accent-2: #7a5cff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, .08)
+    }
+
+    .dark {
+      --bg: #0f1020;
+      --card: #151735;
+      --text: #f2f3ff;
+      --accent: #ff6fb6;
+      --accent-2: #8aa2ff
+    }
+
+    * {
+      box-sizing: border-box
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      background:
+        radial-gradient(1200px 700px at 10% -10%, rgba(255, 95, 162, .25), transparent),
+        radial-gradient(800px 500px at 110% 10%, rgba(122, 92, 255, .22), transparent),
+        var(--bg);
+      color: var(--text)
+    }
+
+    /* ===== NAV (quebra em 2 linhas no mobile) ===== */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      backdrop-filter: saturate(1.2) blur(8px);
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--text) 12%, transparent)
+    }
+
+    .nav-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      flex-direction: column;
+      /* empilha brand + links */
+      align-items: center;
+      /* centraliza */
+      gap: 10px;
+    }
+
+    .brand {
+      font-weight: 800;
+      text-align: center
+    }
+
+    .menu-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center
+    }
+
+    .menu-links a {
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in srgb, var(--text) 14%, transparent);
+      background: color-mix(in srgb, var(--card) 80%, transparent);
+      transition: background .2s, opacity .2s;
+      opacity: .95
+    }
+
+    .menu-links a:hover {
+      opacity: 1;
+      background: color-mix(in srgb, var(--accent) 12%, var(--card))
+    }
+
+    .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 14px;
+      padding: 10px 16px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: #fff
+    }
+
+    .btn.ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid color-mix(in srgb, var(--text) 22%, transparent);
+      box-shadow: none
+    }
+
+    header {
+      text-align: center;
+      padding: 56px 20px 40px
+    }
+
+    .title {
+      font-size: clamp(28px, 6vw, 56px);
+      font-weight: 800;
+      margin: 0 0 10px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    .subtitle {
+      opacity: .9;
+      margin: 0
+    }
+
+    main {
+      max-width: 1080px;
+      margin: 20px auto;
+      padding: 0 16px 60px;
+      display: grid;
+      gap: 28px
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid color-mix(in srgb, var(--text) 10%, transparent);
+      box-shadow: var(--shadow);
+      border-radius: 18px;
+      padding: 22px
+    }
+
+    /* galeria */
+    .gallery {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr))
+    }
+
+    figure.photo {
+      margin: 0;
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(255, 95, 162, .22), rgba(122, 92, 255, .22));
+      cursor: pointer
+    }
+
+    figure.photo img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      display: block;
+      transition: transform .3s
+    }
+
+    figure.photo:hover img {
+      transform: scale(1.05)
+    }
+
+    figure.photo figcaption {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 10px;
+      font-size: .9rem;
+      color: #fff;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, .55))
+    }
+
+    /* contador centralizado */
+    .counter {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center
+    }
+
+    .pill {
+      background: color-mix(in srgb, var(--accent) 18%, var(--card));
+      padding: 10px 14px;
+      border-radius: 12px;
+      min-width: 84px;
+      text-align: center
+    }
+
+    .pill b {
+      display: block;
+      font-size: 20px
+    }
+
+    footer {
+      padding: 30px 16px 60px;
+      text-align: center;
+      opacity: .85
+    }
+
+    /* corações (estilo antigo) com MAIS densidade */
+    .hearts {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0
+    }
+
+    .heart {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      transform: rotate(45deg);
+      background: var(--accent);
+      animation: float 6s linear infinite;
+      opacity: .7
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: inherit
+    }
+
+    .heart::before {
+      left: -7px
+    }
+
+    .heart::after {
+      top: -7px
+    }
+
+    @keyframes float {
+      to {
+        transform: translateY(-120vh) rotate(45deg)
+      }
+    }
+
+    /* dialogs */
+    dialog {
+      border: 0;
+      padding: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      width: min(680px, 92vw)
+    }
+
+    dialog::backdrop {
+      background: rgba(0, 0, 0, .4)
+    }
+
+    .modal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      border-bottom: 1px solid color-mix(in srgb, var(--text) 12%, transparent)
+    }
+
+    .modal-body {
+      padding: 20px
+    }
+
+    .icon-btn {
+      display: inline-grid;
+      place-items: center;
+      border: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
+      background: color-mix(in srgb, var(--card) 70%, transparent);
+      border-radius: 999px;
+      width: 36px;
+      height: 36px;
+      cursor: pointer
+    }
+
+    .icon-btn:hover {
+      filter: brightness(0.98)
+    }
+
+    .modal-head .close {
+      all: unset;
+      cursor: pointer
+    }
+
+    .modal-head .close .icon {
+      font-size: 18px;
+      line-height: 1
+    }
+
+    /* viewer centralizado */
+    #viewer .modal-body {
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 12px
+    }
+
+    #viewer img {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+      max-height: 70vh;
+      border-radius: 12px
+    }
+
+    /* calendário (conteúdo) */
+    .cal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px
+    }
+
+    .cal-weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      margin-bottom: 4px;
+      text-align: center;
+      opacity: .8;
+      width: 100%
+    }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      width: 100%
+    }
+
+    .day {
+      min-height: 80px;
+      padding: 6px;
+      border-radius: 12px;
+      background: color-mix(in srgb, var(--accent) 12%, var(--card));
+      cursor: pointer;
+      position: relative;
+      overflow: hidden
+    }
+
+    .day.today {
+      outline: 2px solid color-mix(in srgb, var(--accent) 50%, transparent)
+    }
+
+    .day.has-note::after {
+      content: "";
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2))
+    }
+
+    /* garantir conteúdo acima dos corações */
+    .nav,
+    header,
+    main,
+    footer,
+    dialog {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav">
+    <div class="nav-inner">
+      <div class="brand">💖 Para <span id="herNameBrand"></span></div>
+      <div class="menu-links">
+        <a href="#caracteristicas">Características</a>
+        <a href="#contador">Contagem</a>
+        <a href="#mensagem">Carta</a>
+        <a href="#calendario">Calendário</a>
+        <button class="btn ghost" id="toggleTheme">🌗 Tema</button>
+        <button class="btn" id="openSurprise">✨ Surpresa</button>
+      </div>
+    </div>
+  </div>
+
+  <header>
+    <h1 class="title">Para você, <span id="herName"></span> 💫</h1>
+    <p class="subtitle">Um cantinho feito com carinho pra guardar nossa história.</p>
+  </header>
+
+  <main>
+    <section class="card" id="caracteristicas">
+      <h2>Características da Princesa</h2>
+      <div class="gallery" id="caracteristicasGaleria"></div>
+    </section>
+
+    <section class="card" id="contador">
+      <h2>Contagem de amor</h2>
+      <div class="counter">
+        <div class="pill"><b id="cDias">0</b>dias</div>
+        <div class="pill"><b id="cHoras">0</b>h</div>
+        <div class="pill"><b id="cMin">0</b>min</div>
+        <div class="pill"><b id="cSeg">0</b>s</div>
+      </div>
+    </section>
+
+    <section class="card" id="mensagem">
+      <h2>Cartinha para você</h2>
+      <p id="loveLetter">Desde que eu te conheci minha vida se tornou algo que eu nunca imaginei, obrigado, te lobo❤️
+      </p>
+    </section>
+
+    <section class="card" id="calendario">
+      <h2>Calendário de recadinhos</h2>
+      <div class="cal-head">
+        <button class="btn ghost" id="prevMonth">◀</button>
+        <div><b id="calMonth"></b> <span id="calYear"></span></div>
+        <button class="btn ghost" id="nextMonth">▶</button>
+      </div>
+      <div class="cal-weekdays">
+        <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+    </section>
+  </main>
+
+  <footer>Feito com ❤ — <span id="year"></span></footer>
+
+  <!-- surpresa -->
+  <dialog id="surprise">
+    <div class="modal-head">
+      <b>Surpresa</b>
+      <button class="icon-btn close" onclick="closeSurprise()" aria-label="Fechar"><span class="icon">✕</span></button>
+    </div>
+    <div class="modal-body">
+      <p>Você é meu lugar favorito 💖</p>
+    </div>
+  </dialog>
+
+  <!-- viewer -->
+  <dialog id="viewer">
+    <div class="modal-head">
+      <b id="viewerTitle">Foto</b>
+      <button class="icon-btn close" onclick="closeViewer()" aria-label="Fechar"><span class="icon">✕</span></button>
+    </div>
+    <div class="modal-body">
+      <img id="viewerImg" alt="">
+      <p id="viewerCaption" style="opacity:.9;margin-top:8px"></p>
+    </div>
+  </dialog>
+
+  <!-- modal do dia -->
+  <dialog id="dayModal">
+    <div class="modal-head">
+      <b id="dayTitle">Recadinho</b>
+      <button class="icon-btn close" onclick="closeDayModal()" aria-label="Fechar"><span class="icon">✕</span></button>
+    </div>
+    <div class="modal-body">
+      <textarea id="dayText" rows="6"
+        style="width:100%;resize:vertical;border:1px solid color-mix(in srgb,var(--text) 12%,transparent);border-radius:12px;padding:10px;"></textarea>
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+        <button class="btn ghost" id="deleteNote">Apagar</button>
+        <button class="btn" id="saveNote">Salvar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- corações -->
+  <div class="hearts" id="hearts"></div>
+
+  <script>
+    const NOME_DELA = "Bruna", DATA_INICIO = "2025-08-14";
+    const CARACTERISTICAS_FOTOS = [
+      { src: "img/Imagem do WhatsApp de 2025-08-21 à(s) 22.49.18_212cd8ad.jpg", alt: "Bruna pequena", legenda: "Uma fofa desde pequena" },
+      { src: "img/Imagem do WhatsApp de 2025-08-21 à(s) 22.49.19_1c758150.jpg", alt: "Bruna do rock", legenda: "De all black rockeira linda" },
+      { src: "img/Imagem do WhatsApp de 2025-08-21 à(s) 22.49.18_77a7fc10.jpg", alt: "Bruna sorrindo", legenda: "Sorriso lindo maravilhoso" }
+    ];
+
+    // nome/ano
+    herName.textContent = NOME_DELA; herNameBrand.textContent = NOME_DELA; year.textContent = new Date().getFullYear();
+
+    // tema
+    if (localStorage.getItem("theme") === "dark") document.documentElement.classList.add("dark");
+    toggleTheme.onclick = () => { document.documentElement.classList.toggle("dark"); localStorage.setItem("theme", document.documentElement.classList.contains("dark") ? "dark" : "light") };
+
+    // corações (mais densos, estilo antigo)
+    const hearts = document.getElementById("hearts");
+    function spawnHeart() {
+      const h = document.createElement("div");
+      h.className = "heart";
+      h.style.left = Math.random() * 100 + "vw";
+      h.style.bottom = "-20px";
+      h.style.animationDuration = (4 + Math.random() * 4) + "s";
+      h.style.opacity = (0.5 + Math.random() * 0.4);
+      h.style.scale = (0.6 + Math.random() * 1.2);
+      hearts.appendChild(h);
+      setTimeout(() => h.remove(), 8000);
+    }
+    setInterval(() => { spawnHeart(); spawnHeart(); spawnHeart() }, 300);
+
+    // surpresa
+    openSurprise.onclick = () => surprise.showModal();
+    function closeSurprise() { surprise.close() }
+
+    // contador
+    function upd() {
+      let s = new Date(DATA_INICIO), n = new Date(), d = n - s;
+      let dias = Math.floor(d / 86400000); d -= dias * 86400000;
+      let h = Math.floor(d / 3600000); d -= h * 3600000;
+      let m = Math.floor(d / 60000); d -= m * 60000;
+      let seg = Math.floor(d / 1000);
+      cDias.textContent = dias; cHoras.textContent = String(h).padStart(2, "0");
+      cMin.textContent = String(m).padStart(2, "0"); cSeg.textContent = String(seg).padStart(2, "0");
+    }
+    upd(); setInterval(upd, 1000);
+
+    // galeria
+    const gal = caracteristicasGaleria;
+    CARACTERISTICAS_FOTOS.forEach(f => {
+      const fig = document.createElement("figure"); fig.className = "photo";
+      fig.innerHTML = `<img src="${f.src}" alt="${f.alt}"><figcaption>${f.legenda}</figcaption>`;
+      fig.onclick = () => { viewerTitle.textContent = f.alt; viewerImg.src = f.src; viewerImg.alt = f.alt || ""; viewerCaption.textContent = f.legenda || ""; viewer.showModal() };
+      gal.appendChild(fig);
+    });
+    function closeViewer() { viewer.close() }
+
+    // calendário de recadinhos
+    let notesStore = JSON.parse(localStorage.getItem("notes") || "{}");
+    const today = new Date(); let vY = today.getFullYear(), vM = today.getMonth();
+    const mFmt = new Intl.DateTimeFormat("pt-BR", { month: "long" });
+    function ymd(d) { return d.toISOString().slice(0, 10) }
+    function render() {
+      calGrid.innerHTML = "";
+      calMonth.textContent = mFmt.format(new Date(vY, vM)).replace(/^\w/, c => c.toUpperCase());
+      calYear.textContent = vY;
+      const first = new Date(vY, vM, 1), start = first.getDay(), days = new Date(vY, vM + 1, 0).getDate();
+      for (let i = 0; i < start; i++) { const d = new Date(vY, vM, -start + i + 1); calGrid.appendChild(cell(d, true)) }
+      for (let i = 1; i <= days; i++) { const d = new Date(vY, vM, i); calGrid.appendChild(cell(d, false)) }
+    }
+    function cell(d, out) {
+      const c = document.createElement("div"); c.className = "day" + (out ? " out" : "");
+      const k = ymd(d); if (notesStore[k]) c.classList.add("has-note");
+      if (k === ymd(today) && !out) c.classList.add("today");
+      c.innerHTML = `<div class="num" style="font-weight:700">${d.getDate()}</div>
+                   <div class="preview" style="opacity:.85;font-size:.9rem;max-height:2.6em;overflow:hidden">${notesStore[k] ? notesStore[k].slice(0, 24) : ""}</div>`;
+      c.onclick = () => openDay(d); return c;
+    }
+    function openDay(d) {
+      dayTitle.textContent = "Recadinho " + d.toLocaleDateString("pt-BR");
+      dayText.value = notesStore[ymd(d)] || ""; dayText.dataset.key = ymd(d);
+      dayModal.showModal();
+    }
+    function closeDayModal() { dayModal.close() }
+    saveNote.onclick = () => { const k = dayText.dataset.key; if (dayText.value.trim()) notesStore[k] = dayText.value; else delete notesStore[k]; localStorage.setItem("notes", JSON.stringify(notesStore)); render(); closeDayModal() }
+    deleteNote.onclick = () => { delete notesStore[dayText.dataset.key]; localStorage.setItem("notes", JSON.stringify(notesStore)); render(); closeDayModal() }
+    prevMonth.onclick = () => { vM--; if (vM < 0) { vM = 11; vY-- } render() }
+    nextMonth.onclick = () => { vM++; if (vM > 11) { vM = 0; vY++ } render() }
+    render();
+  </script>
+</body>
+
+</html>
